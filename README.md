@@ -16,7 +16,3 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 ![](gelato.mp4)
-![](signup.jpg)
-![](home.jpg)
-![](details.jpg)
-![](cart.jpg)
