@@ -6,6 +6,6 @@ void changeScreen(BuildContext context,Widget widget){
 }
 
 void changeScreenRepacement(BuildContext context,Widget widget){
-Navigator.push(context, MaterialPageRoute(builder: (context)=>widget));
+Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>widget));
 
 }

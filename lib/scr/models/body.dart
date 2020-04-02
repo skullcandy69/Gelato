@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:market_place/scr/models/products.dart';
 import 'package:market_place/scr/screens/cart.dart';
 import 'package:market_place/scr/screens/details.dart';
 import 'package:market_place/scr/screens/home_page.dart';
+import 'package:market_place/scr/screens/profile.dart';
 
 class Body extends StatelessWidget {
   final int index;
@@ -17,13 +17,7 @@ class Body extends StatelessWidget {
 
         break;
       case 2:
-        return Details(product:  Product(
-            name: 'Namkeen',
-            image: '1.jpg',
-            price: 50,
-            rating: 4.0,
-            wishlist: true,
-            vendor: 'haldiram'),);
+        return Profile();
         break;
       default:
         return ShoppingBag();

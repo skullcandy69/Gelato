@@ -1,9 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:market_place/scr/models/products.dart';
 import 'package:market_place/scr/helpers/commons.dart';
 
 class Details extends StatefulWidget {
-  final Product product;
+  final DocumentSnapshot product;
 
   Details({ this.product});
   @override
@@ -23,8 +24,8 @@ class _DetailsState extends State<Details> {
                 Container(
                   height: 250,
                   width: MediaQuery.of(context).size.width,
-                  child: Image.asset(
-                    'images/${widget.product.image}',
+                  child: Image.network(
+                    widget.product['url'],
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -84,12 +85,12 @@ class _DetailsState extends State<Details> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        widget.product.name,
+                        widget.product['name'],
                         style: TextStyle(
                             fontWeight: FontWeight.w400, fontSize: 26),
                       ),
                       Text(
-                        '₹ ${widget.product.price}',
+                        '₹ ${widget.product['price']}',
                         style: TextStyle(
                             color: red,
                             fontWeight: FontWeight.w300,
@@ -100,7 +101,7 @@ class _DetailsState extends State<Details> {
                   Row(
                     children: <Widget>[
                       Text(
-                        'by ${widget.product.vendor}',
+                        'by ${widget.product['vendor']}',
                         style: TextStyle(
                             fontWeight: FontWeight.w200, fontSize: 18),
                       ),
@@ -136,7 +137,7 @@ class _DetailsState extends State<Details> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
+                  child: IconButton(onPressed: (){},
                     icon: Icon(
                       Icons.remove,
                       color: black,
@@ -162,7 +163,7 @@ class _DetailsState extends State<Details> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: IconButton(
+                  child: IconButton(onPressed: (){},
                     icon: Icon(
                       Icons.add,
                       color: black,
@@ -175,7 +176,7 @@ class _DetailsState extends State<Details> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Container(
-                child: Text(widget.product.desc),
+                child: Text(widget.product['desc']),
               ),
             )
           ],

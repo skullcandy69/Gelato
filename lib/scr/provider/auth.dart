@@ -45,7 +45,9 @@ class AuthProvider with ChangeNotifier {
     try{
       _status= status.Authenticating;
       notifyListeners();
-      await _auth.createUserWithEmailAndPassword(email: email.text, password: password.text).then((user){
+      await _auth.createUserWithEmailAndPassword(
+          email: email.text,
+          password: password.text).then((user){
         Map<String,dynamic> values ={
           "name":name.text,
           "email":email.text,
