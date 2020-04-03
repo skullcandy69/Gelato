@@ -4,8 +4,8 @@ A new Flutter application.
 
 ## Getting Started
 
-This is an application for ordering food online . User authentication is done by firebase
-[Sample Work : ](https://drive.google.com/open?id=1sd0IUILB8TvepZ-1exG6MbtAcbfRx6s)
+This is an application for ordering food online . User authentication is done by firebase.
+[Sample Work ](https://drive.google.com/file/d/1sd0IUILB8TvepZ-1exG6MbtAcbfRx6sj/view?usp=sharing)
 
 
 A few resources to get you started if this is your first Flutter project:
