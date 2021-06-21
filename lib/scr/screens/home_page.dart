@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:market_place/scr/screens/top%20brands.dart';
@@ -25,12 +26,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ScrollPhysics _scrollController = new ScrollPhysics();
+  final FirebaseMessaging _messaging = FirebaseMessaging();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+
+  //   _messaging.getToken().then((token) {
+  //     print(token);
+  //   });
+  // }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _getCurrentLocation();
     loc();
+
+    _messaging.getToken().then((token) {
+      print(token);
+    });
   }
 
   loc() async {
@@ -371,10 +386,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  Restaurants(
-                    scrollController: _scrollController,
-                  ),
-                  
+                  Restaurants(),
                 ],
               ),
             ),

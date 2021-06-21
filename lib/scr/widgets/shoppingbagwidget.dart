@@ -18,7 +18,7 @@ class shoppingBagWidget extends StatelessWidget {
             scale: 18,
           ),
           Positioned(
-            bottom: 0,
+            bottom: 5,
             child: Container(
               height: 17,
               width: 20,
@@ -28,7 +28,7 @@ class shoppingBagWidget extends StatelessWidget {
                   boxShadow: [
                     BoxShadow(
                         color: grey,
-                        offset: Offset(2, 3),
+                        offset: Offset(2, 2),
                         blurRadius: 3)
                   ]),
               child: Center(

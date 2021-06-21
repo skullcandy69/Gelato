@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:market_place/scr/helpers/commons.dart';
+import 'package:market_place/scr/helpers/screen_navigation.dart';
+import 'package:market_place/scr/widgets/Dishes.dart';
+import 'package:market_place/scr/widgets/loading.dart';
 
 class Restaurants extends StatefulWidget {
-  final ScrollPhysics scrollController;
-  Restaurants({this.scrollController});
   @override
   _RestaurantsState createState() => _RestaurantsState();
 }
@@ -12,28 +13,29 @@ class Restaurants extends StatefulWidget {
 class _RestaurantsState extends State<Restaurants> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Container(
-          height: 270,
-          child: StreamBuilder(
-            stream: Firestore.instance.collection('restaurants').snapshots(),
-            builder: (context, snapshot) {
-              if (!snapshot.hasData) {
-                return Text('Loading...');
-              }
-              var userDocument = snapshot.data;
-              print(userDocument);
-              return ListView.builder(
-                  itemCount: userDocument.documents.length,
-                  // controller: widget.scrollController,
-                  physics: ScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (context, index) =>
-                      _buildListItem(context, snapshot.data.documents[index]));
-            },
-          ),
-        ));
+    return StreamBuilder(
+      stream: Firestore.instance.collection('restaurants').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Text('Loading...');
+        }
+        var userDocument = snapshot.data;
+        print(userDocument);
+        return ListView.builder(
+            itemCount: userDocument.documents.length,
+            physics: ScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (context, index) => GestureDetector(
+                onTap: () => changeScreen(
+                    context,
+                    Dishes(
+                      dish: snapshot.data.documents[index],
+                    )),
+                child:
+                    _buildListItem(context, snapshot.data.documents[index])));
+      },
+    );
   }
 }
 
@@ -43,7 +45,6 @@ Widget _buildListItem(BuildContext context, DocumentSnapshot document) {
     child: Container(
       height: 100,
       width: MediaQuery.of(context).size.width,
-
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[

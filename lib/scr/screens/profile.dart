@@ -3,7 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:market_place/scr/helpers/commons.dart';
 import 'package:market_place/scr/helpers/screen_navigation.dart';
+import 'package:market_place/scr/models/user.dart';
+import 'package:market_place/scr/provider/auth.dart';
 import 'package:market_place/scr/screens/login.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
@@ -15,234 +18,224 @@ class _ProfileState extends State<Profile> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15, top: 25),
-              child: Row(
+    return SafeArea(child: SingleChildScrollView(child: _profilepage()));
+  }
+
+  _profilepage() {
+    final authProvider = Provider.of<AuthProvider>(context);
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15, top: 25),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+               authProvider.userModel?.name==null?'null': authProvider.userModel?.name.toUpperCase(),
+                style: TextStyle(
+                    color: black, fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              GestureDetector(
+                onTap: () {
+                  _settingModalBottomSheet(
+                      context, authProvider, authProvider.userModel.id);
+                },
+                child: Text(
+                  "EDIT",
+                  style: TextStyle(
+                      color: Colors.deepOrange, fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15, top: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                authProvider.userModel?.phno.trim()==null?'null':authProvider.userModel?.phno.trim(),
+                style: TextStyle(
+                    color: grey, fontSize: 15, fontWeight: FontWeight.w400),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                authProvider.userModel?.email==null?'null':authProvider.userModel?.email,
+                style: TextStyle(
+                    color: grey, fontSize: 15, fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15),
+          child: SizedBox(
+            child: Container(
+              height: 2,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
+          child: Column(
+            children: <Widget>[
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "SHIVAM AHUJA",
+                    "My Account",
                     style: TextStyle(
-                        color: black,
+                        color: Colors.black87,
                         fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w500),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      _settingModalBottomSheet(context);
-                    },
-                    child: Text(
-                      "EDIT",
-                      style: TextStyle(
-                          color: Colors.deepOrange,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15, top: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "9718529289",
+                    "Addresses,Payments,Referrals & Offers",
                     style: TextStyle(
-                        color: grey, fontSize: 15, fontWeight: FontWeight.w400),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "Shiv.ahuja1494@gmail.com",
-                    style: TextStyle(
-                        color: grey, fontSize: 15, fontWeight: FontWeight.w400),
+                        color: grey, fontSize: 14, fontWeight: FontWeight.w300),
                   ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15),
-              child: SizedBox(
-                child: Container(
-                  height: 2,
-                  color: Colors.black54,
+              SizedBox(
+                height: 10,
+              ),
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.home, size: 20),
+                title: Text(
+                  "Manage Address",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15, top: 15),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "My Account",
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Addresses,Payments,Referrals & Offers",
-                        style: TextStyle(
-                            color: grey,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.home, size: 20),
-                    title: Text(
-                      "Manage Address",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.payment, size: 20),
-                    title: Text(
-                      "Payments",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.add_comment, size: 20),
-                    title: Text("Referrals",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w300)),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(Icons.local_offer, size: 20),
-                    title: Text("Offers",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w300)),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      size: 15,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15),
-              child: SizedBox(
-                child: Container(
-                  height: 2,
-                  color: Colors.black54,
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.payment, size: 20),
+                title: Text(
+                  "Payments",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w300),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, top: 10, bottom: 10),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Help",
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "FAQs & Links",
-                        style: TextStyle(
-                            color: grey,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w300),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0, right: 15),
-              child: SizedBox(
-                child: Container(
-                  height: 2,
-                  color: Colors.black54,
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.add_comment, size: 20),
+                title: Text("Referrals",
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w300)),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
                 ),
               ),
-            ),
-            ListTile(
-              onTap: () async {
-                print('good bye');
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                prefs.remove('issignedin');
-                prefs.remove('location');
-                changeScreenRepacement(context, LoginScreen());
-              },
-              title: Text("logout",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-              trailing: Icon(
-                Icons.exit_to_app,
-                size: 20,
+              ListTile(
+                onTap: () {},
+                leading: Icon(Icons.local_offer, size: 20),
+                title: Text("Offers",
+                    style:
+                        TextStyle(fontSize: 15, fontWeight: FontWeight.w300)),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  size: 15,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15),
+          child: SizedBox(
+            child: Container(
+              height: 2,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, top: 10, bottom: 10),
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "Help",
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "FAQs & Links",
+                    style: TextStyle(
+                        color: grey, fontSize: 14, fontWeight: FontWeight.w300),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.0, right: 15),
+          child: SizedBox(
+            child: Container(
+              height: 2,
+              color: Colors.black54,
+            ),
+          ),
+        ),
+        ListTile(
+          onTap: () async {
+            authProvider.signOut();
+            changeScreenRepacement(context, LoginScreen());
+          },
+          title: Text("logout",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
+          trailing: Icon(
+            Icons.exit_to_app,
+            size: 20,
+          ),
+        ),
+      ],
     );
   }
 
-  void _settingModalBottomSheet(BuildContext context) async {
+  void _settingModalBottomSheet(
+      BuildContext context, AuthProvider authProvider, String id) async {
     TextEditingController _email = TextEditingController();
     TextEditingController _name = TextEditingController();
     TextEditingController _password = TextEditingController();
     TextEditingController _phno = TextEditingController();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var doc = prefs.getString('email');
+
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
@@ -293,8 +286,6 @@ class _ProfileState extends State<Profile> {
                   padding: const EdgeInsets.only(left: 15.0, right: 15),
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
-                    enabled: false,
-                    initialValue: doc,
                     decoration: InputDecoration(
                         fillColor: Colors.deepOrangeAccent,
                         labelText: 'EMAIL ID(cannot be changed)',
@@ -311,8 +302,7 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.only(top: 15, left: 15.0, right: 15),
+                  padding: const EdgeInsets.only(top: 5, left: 15.0, right: 15),
                   child: TextFormField(
                     keyboardType: TextInputType.number,
                     controller: _phno,
@@ -334,7 +324,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 15, left: 15.0, right: 15, bottom: 15),
+                      top: 5, left: 15.0, right: 15, bottom: 5),
                   child: TextFormField(
                     keyboardType: TextInputType.visiblePassword,
                     obscureText: true,
@@ -361,11 +351,11 @@ class _ProfileState extends State<Profile> {
                         ? Scaffold.of(context).showSnackBar(SnackBar(
                             content: Text('Account Updated!!'),
                             duration: Duration(seconds: 3),
-                      backgroundColor: green,
+                            backgroundColor: green,
                           ))
                         : null;
                     _formKey.currentState.validate()
-                        ? updateData(_name.text, _phno.text, _password.text)
+                        ? authProvider.updateData(_name.text, _email.text, id)
                         : null;
                     _formKey.currentState.validate()
                         ? Navigator.pop(context)
@@ -389,22 +379,6 @@ inputData() async {
   final FirebaseUser user = await FirebaseAuth.instance.currentUser();
   final String uid = user.uid.toString();
   return uid;
-}
-
-void updateData(String name, String phono, String pass) async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var doc = prefs.getString('email');
-  print(doc);
-  try {
-    databaseReference.collection('User').document(doc).updateData({
-      'name': name,
-//      'email': email,
-      'phone': phono,
-      'password': pass
-    });
-  } catch (e) {
-    print(e.toString());
-  }
 }
 
 //

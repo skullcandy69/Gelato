@@ -6,7 +6,7 @@ import 'package:market_place/scr/models/PopularBrands.dart';
 
 List<Brands> brandlist=[
   Brands(name: "Domino's Pizza",image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Dominos_pizza_logo.svg/768px-Dominos_pizza_logo.svg.png',time: 45),
-  Brands(name: "Burger King",image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Burger_King_Logo.svg/768px-Burger_King_Logo.svg.png',time: 35),
+  Brands(name: "Burger King",image: 'https://banner2.cleanpng.com/20180925/hjq/kisspng-burger-king-gmbh-munchen-logo-hamburger-brand-burger-king-logo-png-transparent-svg-vector-fr-5baad09e5c5625.4805092915379211823782.jpg',time: 35),
   Brands(name: "Waffle Factory",image: 'https://i.pinimg.com/originals/af/14/01/af1401e633d29fb37ab6f3abb03d3609.jpg',time: 20),
   Brands(name: "Gaini's",image: 'https://sgp1.digitaloceanspaces.com/quickcompany/trademark/9700032232a88285.jpg',time: 25),
   Brands(name: "Mc Donalds",image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/300px-McDonald%27s_Golden_Arches.svg.png',time: 25),

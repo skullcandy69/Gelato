@@ -43,5 +43,3 @@ _buildListItem(BuildContext context, document) {
     ),
   );
 }
-
-//(BuildContext context, int index) =>

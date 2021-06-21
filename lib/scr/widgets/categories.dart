@@ -6,7 +6,7 @@ import '../helpers/commons.dart';
 List<Category> categoriesList = [
   Category(name: 'Salad', image: 'salad.png'),
   Category(name: 'Ice Cream', image: 'ice-cream.png'),
-  Category(name: 'Pint', image: 'pint.png'),
+  // Category(name: 'Pint', image: 'pint.png'),
   Category(name: 'Sandwich', image: 'sandwich.png'),
   Category(name: 'Steak', image: 'steak.png'),
   Category(name: 'Sea Food', image: 'fish.png'),

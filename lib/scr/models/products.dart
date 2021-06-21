@@ -1,17 +1,71 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
+class ProductModel extends ChangeNotifier {
+  List<Productmod> productlist = [];
+  removeItem(Productmod p) {
+    productlist.remove(p);
+    notifyListeners();
+  }
 
-class Product{
-   String name;
-   String image;
-   double rating;
-   double price;
-   String vendor;
-   bool wishlist;
-  String desc;
-  Product({this.name, this.image, this.rating, this.price, this.vendor, this.wishlist,this.desc});
+  totalprice() {
+    int tprice = 0;
+    if (productlist.length == 0) {
+      tprice = 0;
+    } else {
+      for (int i = 0; i < productlist.length; i++) {
+        tprice += productlist[i].price;
+      }
+    }
 
+    notifyListeners();
+    return tprice;
+  }
+
+  List<Productmod> getProductList() {
+    print(productlist.toSet().toList().length.toString() + "hello");
+    return productlist.toSet().toList();
+  }
+
+  int getQuanity(String name, String vendor) =>
+      productlist.where((p) => name == p.name && vendor == p.vendor).length;
+
+  addTaskInList(String name, String url, int price, String vendor) {
+    Productmod taskModel = Productmod(name, vendor, price, url);
+    productlist.add(taskModel);
+    notifyListeners();
+    //code to do
+  }
 }
+
+class Productmod  extends Equatable {
+  String name;
+  String vendor;
+  int price;
+  String url;
+
+  String get getTitle => name;
+  String get getDetail => vendor;
+  int get getprice => price;
+  String get geturl => url;
+
+  Productmod(this.name, this.vendor, this.price, this.url);
+
+   @override
+  List<Object> get props => [name];
+}
+
+// class Product{
+//    String name;
+//    String image;
+//    double rating;
+//    double price;
+//    String vendor;
+//    bool wishlist;
+//   String desc;
+//   Product({this.name, this.image, this.rating, this.price, this.vendor, this.wishlist,this.desc});
+
+// }
 //
 //class Product{
 //
